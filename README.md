@@ -1,6 +1,7 @@
 ## запустить код
 
 cd project
+
 python data_cleaning.py
 
 ## структура проекта
