@@ -321,40 +321,24 @@ for col in df_original.columns:
 
 after_columns = [col for col in column_mapping.keys() if col in df_clean.columns]
 
-positions_col = 'Positions'
-positions_formatted_col = 'positions_formatted'
-example_idx = []
-if positions_col in df_original.columns and positions_formatted_col in df_clean.columns:
-    multi_pos_idx = df_original[df_original[positions_col].astype(str).str.contains(r'[ ,]')].index
-    example_idx = multi_pos_idx[:3]
-
 print("\n")
-print("Сравнение последних 3 строк (только новые/структурно изменённые столбцы)")
-if len(example_idx) > 0:
-    print("\nдо очистки")
+print("Сравнение последних 50 строк (только новые/структурно изменённые столбцы)")
+
+print("\nдо очистки")
+if before_columns:
     before_cols_with_dtype = [f"{col} ({df_original[col].dtype})" for col in before_columns]
-    before_df = df_original.loc[example_idx, before_columns].copy()
+    before_df = df_original[before_columns].tail(50).copy()
     before_df.columns = before_cols_with_dtype
     print(before_df)
-    print("\nпосле очистки")
-    after_cols_with_dtype = [f"{col} ({df_clean[col].dtype})" for col in after_columns]
-    after_df = df_clean.loc[example_idx, after_columns].copy()
-    after_df.columns = after_cols_with_dtype
-    print(after_df)
 else:
-    print("\nдо очистки")
-    if before_columns:
-        before_cols_with_dtype = [f"{col} ({df_original[col].dtype})" for col in before_columns]
-        before_df = df_original[before_columns].tail(3).copy()
-        before_df.columns = before_cols_with_dtype
-        print(before_df)
-    else:
-        print("нет исходных столбцов для сравнения.")
-    print("\nпосле очистки")
-    after_cols_with_dtype = [f"{col} ({df_clean[col].dtype})" for col in after_columns]
-    after_df = df_clean[after_columns].tail(3).copy()
-    after_df.columns = after_cols_with_dtype
-    print(after_df)
+    print("нет исходных столбцов для сравнения.")
+
+print("\nпосле очистки")
+after_cols_with_dtype = [f"{col} ({df_clean[col].dtype})" for col in after_columns]
+after_df = df_clean[after_columns].tail(50).copy()
+after_df.columns = after_cols_with_dtype
+print(after_df)
+
 
 # Решенные проблемы в данных (теперь в комментариях):
 # 1. Названия столбцов приведены к змеиному регистру и очищены от спецсимволов для единообразия и удобства обращения.
