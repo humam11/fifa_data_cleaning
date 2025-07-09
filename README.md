@@ -4,9 +4,11 @@
 fifa_data_cleaning/
 ├── README.md                           # Документация проекта
 ├── data_cleaning.py                    # Скрипт очистки данных
-├── exploratory_data_analysis.py        # Исследовательский анализ данных
+├── data_cleaning.ipynb                 # Ноутбук с процессом очистки данных
 ├── players.csv                         # Исходные данные FIFA 2021
 ├── players_cleaned.csv                 # Очищенные данные
+├── analiz-2.py                         # Скрипт для анализа данных
+├── analiz-2.ipynb                      # Ноутбук с анализом данных
 ```
 
 ## Этапы анализа
