@@ -58,6 +58,26 @@ print(df.iloc[::1000, [1, 5, 6, 7, 8]])
 print("\n5. Игроки с индексами 5000-5010:")
 print(df.iloc[5000:5011, [1, 5, 6, 7, 8]])
 
+# 6. Выбор игроков с индексами 10000-10005
+print("\n6. Игроки с индексами 10000-10005:")
+print(df.iloc[10000:10006, [1, 5, 6, 7, 8]])
+
+# 7. Выбор игроков с индексами 15000-15010
+print("\n7. Игроки с индексами 15000-15010:")
+print(df.iloc[15000:15011, [1, 5, 6, 7, 8]])
+
+# 8. Выбор игроков с индексами 18000-18005
+print("\n8. Игроки с индексами 18000-18005:")
+print(df.iloc[18000:18006, [1, 5, 6, 7, 8]])
+
+# 9. Выбор игроков с индексами 500-510
+print("\n9. Игроки с индексами 500-510:")
+print(df.iloc[500:511, [1, 5, 6, 7, 8]])
+
+# 10. Выбор игроков с индексами 1000-1010
+print("\n10. Игроки с индексами 1000-1010:")
+print(df.iloc[1000:1011, [1, 5, 6, 7, 8]])
+
 # Логическая индексация (не менее 5 различных условий)
 print("\n2.2. ЛОГИЧЕСКАЯ ИНДЕКСАЦИЯ:")
 
@@ -208,12 +228,66 @@ heading_players = df.where((df['heading_accuracy'] > 75) & (df['jumping'] > 75))
 print(f"Количество игроков с высокими навыками удара головой: {len(heading_players)}")
 print(heading_players[['longname', 'heading_accuracy', 'jumping', 'positions_formatted']].head(10))
 
+
+# 3. ФИЛЬТРАЦИЯ ДАННЫХ С ПОМОЩЬЮ МЕТОДА QUERY (10 различных фильтров)
+print("\n3. ФИЛЬТРАЦИЯ ДАННЫХ С ПОМОЩЬЮ МЕТОДА QUERY (10 различных фильтров)")
+
+# 1. Игроки старше 30 лет
+older_players = df.query('age > 30')
+print("1. Игроки старше 30 лет:")
+print(older_players[['longname', 'age', 'ova', 'nationality']].head(10))
+
+# 2. Игроки с рейтингом между 80 и 85
+mid_rated = df.query('ova >= 80 and ova <= 85')
+print("\n2. Игроки с рейтингом между 80 и 85:")
+print(mid_rated[['longname', 'age', 'ova', 'nationality']].head(10))
+
+# 3. Игроки из Германии с потенциалом выше 80
+brazil_talents = df.query('nationality == "Germany" and pot > 80')
+print("\n3. Игроки из Германии с потенциалом выше 80:")
+print(brazil_talents[['longname', 'age', 'ova', 'pot']].head(10))
+
+# 4. Вратари с ростом выше 185 см
+high_gks = df.query('positions_formatted == "GK" and height_cm > 185')
+print("\n4. Вратари с ростом выше 185 см:")
+print(high_gks[['longname', 'height_cm', 'weight_kg', 'ova']].head(10))
+
+# 5. Игроки с выносливостью менее 60 и возрастом до 23 лет
+low_stamina_young = df.query('stamina < 60 and age < 23')
+print("\n5. Игроки с выносливостью < 60 и возрастом < 23:")
+print(low_stamina_young[['longname', 'age', 'stamina', 'ova']].head(10))
+
+# 6. CB или LB с силой удара > 60
+cb_lb_shot = df.query('(positions_formatted == "CB" or positions_formatted == "LB") and shot_power > 60')
+print("\n6. CB или LB с силой удара > 60:")
+print(cb_lb_shot[['longname', 'positions_formatted', 'shot_power', 'ova']].head(10))
+
+# 7. Игроки с ростом между 175 и 180 см и весом менее 70 кг
+medium_height_light = df.query('height_cm >= 175 and height_cm <= 180 and weight_kg < 70')
+print("\n7. Игроки с ростом 175-180 см и весом < 70 кг:")
+print(medium_height_light[['longname', 'height_cm', 'weight_kg', 'ova']].head(10))
+
+# 8. Игроки с навыком дриблинга > 80 и завершением > 75
+skill_finish = df.query('dribbling > 80 and finishing > 75')
+print("\n8. Игроки с дриблингом > 80 и завершением > 75:")
+print(skill_finish[['longname', 'dribbling', 'finishing', 'ova']].head(10))
+
+# 9. Молодые игроки из Франции
+argentina_young = df.query('nationality == "France" and age < 25')
+print("\n9. Молодые игроки из Франции:")
+print(argentina_young[['longname', 'age', 'ova', 'pot']].head(10))
+
+# 10. CM с потенциалом > 80
+high_pot_st = df.query('pot > 80 and positions_formatted == "CM"')
+print("\n10. CM с потенциалом > 80:")
+print(high_pot_st[['longname', 'age', 'ova', 'pot']].head(10))
+
 # 4. СВОДНЫЕ ТАБЛИЦЫ
 print("\n")
-print("5. СВОДНЫЕ ТАБЛИЦЫ")
+print("5. сводные таблицы")
 
 
-print("\n5.1. СВОДНАЯ ТАБЛИЦА 1: Средний рейтинг по национальностям (топ-10):")
+print("\n5.1. сводная таблица 1: средний рейтинг по национальностям (топ-10):")
 print("-" * 70)
 pivot1 = df.pivot_table(
     values='ova',
